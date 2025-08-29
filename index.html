@@ -38,6 +38,47 @@
 
 <body class="index-page">
 
+<!-- Preloader with Loading Bar -->
+<div id="preload-wrapper" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;text-align:center;">
+  <h2>🎉 Minh’s Birthday Celebration 🎂</h2>
+  <p style="font-weight:bold; color:#ff4081;">🎧 Put on your headphones for the music before loading!</p>
+  <p>Click the bar to start the party!</p>
+  <div id="preload-bar-container" style="width:300px;height:30px;background:#ddd;border-radius:15px;cursor:pointer;overflow:hidden;">
+    <div id="preload-bar" style="width:0%;height:100%;background:#ff4081;border-radius:15px;"></div>
+  </div>
+</div>
+
+
+<!-- Hidden Audio -->
+<audio id="preload-audio" src="assets/mp3/You and Me - Olivia Ong.mp3" loop></audio>
+
+<script>
+  const preloadWrapper = document.getElementById('preload-wrapper');
+  const preloadBar = document.getElementById('preload-bar');
+  const preloadContent = document.getElementById('preload-content');
+  const preloadAudio = document.getElementById('preload-audio');
+  const preloadBarContainer = document.getElementById('preload-bar-container');
+
+  preloadBarContainer.addEventListener('click', () => {
+    let preloadWidth = 0;
+    const preloadInterval = setInterval(() => {
+      preloadWidth += 1; // Adjust speed by changing increment
+      preloadBar.style.width = preloadWidth + '%';
+      if (preloadWidth >= 100) {
+        clearInterval(preloadInterval);
+        // Hide preloader
+        preloadWrapper.style.display = 'none';
+        // Show main content
+        document.getElementById('preload-content').style.display = 'block';
+        // Play music
+        preloadAudio.play().catch(err => console.log('Autoplay blocked, user interaction required'));
+      }
+    }, 20); // 20ms per increment → ~2s full bar
+  });
+</script>
+
+
+<div id="preload-content" style="display:none;">
   <header id="header" class="header d-flex align-items-center position-relative">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
@@ -51,10 +92,10 @@
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#resume">Resume</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#portfolio">Event Resources</a></li>
+          <li><a href="#music">Playlist</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">RSVP Now</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -256,6 +297,24 @@
       </div>
 
     </section><!-- /Event Resources Section -->
+
+    
+    <!-- Music Playlist Section -->
+    <section id="music" class="music section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Party Playlist 🎶</h2>
+        <p>Get in the mood for Minh’s Birthday Bash! Enjoy some tunes while waiting for the celebration to start at 7 PM.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="playlist-wrapper text-center">
+          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2lAkiiYzWIxGyy4LfFUayL?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </section><!-- /Music Playlist Section -->
 
     <!-- Faq Section -->
     <section id="faq" class="faq section">
@@ -499,6 +558,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+</div>
 
 </body>
 
